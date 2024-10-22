@@ -1,4 +1,3 @@
-# goph419-f2024-lab02-stOJ
 # GOPH 419 – Computational Methods for Geophysicists
 
 *Semester:* F2024
