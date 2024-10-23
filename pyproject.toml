@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 name = "my_python_package"
 version = "0.0.1"
 authors = [
- { name="Brandon Karchewski", email="brandon.karchewski@ucalgary.ca" },
+ { name="Joshua Oyedemi", email="joshua.oyedemi@ucalgary.ca" },
 ]
 description="An example Python package"
 readme = "README.md"
@@ -20,4 +20,4 @@ classifiers = [
  "License :: OSI Approved :: GNU General Public License v3",
 ]
 [project.urls]
-"Homepage" = "https://github.com/karcheba1/goph-419-f2024-lab00-stBK"
+"Homepage" = "https://github.com/Dammmmilare/goph419-f2024-lab02-stOJ"
