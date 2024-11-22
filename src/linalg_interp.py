@@ -111,7 +111,9 @@ def cubic_spline(xd, yd):
     A[0, 0] = 1
     A[n, n] = 1
 
-    #Internal continuity 
+    #Internal continuity and smoothness conditons
+    for i in range(1 + n):
+        
 
 def spline_function():
 
