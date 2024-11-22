@@ -102,10 +102,11 @@ def cubic_spline(xd, yd):
     xd = np.asarray(xd)
     yd = np.asarray(yd)
 
+    # Setting intervals (n) and interval lengths (h)
+    n = len(xd) - 1
+    h = np.diff(xd)
 
-
-
-
+    #
 
 
 def spline_function():
