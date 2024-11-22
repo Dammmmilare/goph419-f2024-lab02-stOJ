@@ -2,7 +2,6 @@
 # algorithm and system.
 
 import numpy as np
-
 # Function helps us solve large scale and sparse systems where the use of iteirative 
 # methods can use sparsity to save computational stress.
 
@@ -94,10 +93,8 @@ def gauss_iter_solve(A, b, x0=None, tol=1e-8, alg='seidel'):
 
 
 # This function generates a spline interpolation function for our algorithm
-
 #from scipy.interpolate import Univariatespline
 import numpy as np
-
 def cubic_spline(xd, yd):
     xd = np.asarray(xd)
     yd = np.asarray(yd)
@@ -106,7 +103,11 @@ def cubic_spline(xd, yd):
     n = len(xd) - 1
     h = np.diff(xd)
 
-    #
+    #Step 1: setting the system up for second derivatives
+
+
+
+    #Neutral spline boundary conditions
 
 
 def spline_function():
