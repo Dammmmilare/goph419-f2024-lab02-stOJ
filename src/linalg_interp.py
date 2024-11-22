@@ -118,7 +118,8 @@ def cubic_spline(xd, yd):
         A[i, i + 1] = h[i]
         b[i] = (3 / h[i]) * (yd[i + 1] - yd[i]) - (3 / h[i - 1]) * (yd[i] - yd[i - 1])
     
-    #
+    #Solve for M second derivative
+    M = np.linalg.solve(A, b)
 
 def spline_function():
 
