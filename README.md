@@ -7,7 +7,7 @@
 HOW TO INSTALL
 
 NOTE!!!: Cloning my remote repository to your local machine;
-For You have to download and edit my source code and other project files, you will need to clone my repository from the remote on GitHub.
+For You to download and edit my source code and other project files, you will need to clone my repository from the remote on GitHub.
 Here are the steps:
 
 1. Open a terminal session on your local machine.
