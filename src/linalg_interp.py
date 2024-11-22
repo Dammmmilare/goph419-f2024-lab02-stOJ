@@ -104,11 +104,11 @@ def cubic_spline(xd, yd):
     h = np.diff(xd)
 
     #Step 1: setting the system up for second derivatives
-
-
+    A = np.zeros((n + 1, n + 1))
+    b = np.zeros(n + 1)
 
     #Neutral spline boundary conditions
-
+    
 
 def spline_function():
 
