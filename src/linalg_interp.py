@@ -108,7 +108,10 @@ def cubic_spline(xd, yd):
     b = np.zeros(n + 1)
 
     #Neutral spline boundary conditions
-    
+    A[0, 0] = 1
+    A[n, n] = 1
+
+    #Internal continuity 
 
 def spline_function():
 
