@@ -113,7 +113,10 @@ def cubic_spline(xd, yd):
 
     #Internal continuity and smoothness conditons
     for i in range(1 + n):
-        
+        A[i, i - 1] = h[i - 1]
+        A[i, i] = 2 * (h[i -1 ] + h[i])
+        A[i, i + 1] = h[i]
+        b[i] = (3 / h[i]) * (yd[i + 1] - yd[i]) - (3 / h[i - 1]) * (yd[i] - yd[i - 1])
 
 def spline_function():
 
