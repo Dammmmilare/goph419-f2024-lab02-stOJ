@@ -95,35 +95,8 @@ def gauss_iter_solve(A, b, x0=None, tol=1e-8, alg='seidel'):
 # This function generates a spline interpolation function for our algorithm
 #from scipy.interpolate import Univariatespline
 import numpy as np
-def cubic_spline(xd, yd):
-    xd = np.asarray(xd)
-    yd = np.asarray(yd)
 
-    # Setting intervals (n) and interval lengths (h)
-    n = len(xd) - 1
-    h = np.diff(xd)
-
-    #Step 1: setting the system up for second derivatives
-    A = np.zeros((n + 1, n + 1))
-    b = np.zeros(n + 1)
-
-    #Neutral spline boundary conditions
-    A[0, 0] = 1
-    A[n, n] = 1
-
-    #Internal continuity and smoothness conditons
-    for i in range(1 + n):
-        A[i, i - 1] = h[i - 1]
-        A[i, i] = 2 * (h[i -1 ] + h[i])
-        A[i, i + 1] = h[i]
-        b[i] = (3 / h[i]) * (yd[i + 1] - yd[i]) - (3 / h[i - 1]) * (yd[i] - yd[i - 1])
-    
-    #Solve for M second derivative
-    M = np.linalg.solve(A, b)
-
-def spline_function():
-
-    """
+"""
         Parameters:
         ===========
         xd:
@@ -169,27 +142,53 @@ def spline_function():
         ValueError : if inputs are invalid or do not meet requirements as desired.
     """
 
-    """xd = np.nsarray(xd, dtype=float)
-    yd = np.nsarray(yd, dtype=float)
-    #Tests for array dimensionality (1D)
-    if xd.ndim != 1 or yd.ndim != 1:
-        raise ValueError("xd and yd must be 1D arrays.")
-    #Tests for array length
-    if xd.shape[0] != yd.shape[0]:
-        raise ValueError("xd and yd must have similar shapes or lengths")
-    #Tests for order in increasing form
-    if np.any(np.diff(xd) <= 0 ):
-        raise ValueError("Must be strictly in increasing order unless employ numpy.sort()")
-    #Tests for order in [1,2, or 3]
-    if order not in {1, 2, 3}:
-        raise ValueError("Order must be in 1,2, or 3")
+def cubic_spline(xd, yd):
+
+    xd = np.asarray(xd)
+    yd = np.asarray(yd)
+
+    # Setting intervals (n) and interval lengths (h)
+    n = len(xd) - 1
+    h = np.diff(xd)
+
+    #Step 1: setting the system up for second derivatives
+    A = np.zeros((n + 1, n + 1))
+    b = np.zeros(n + 1)
+
+    #Neutral spline boundary conditions
+    A[0, 0] = 1
+    A[n, n] = 1
+
+    #Internal continuity and smoothness conditons
+    for i in range(1 + n):
+        A[i, i - 1] = h[i - 1]
+        A[i, i] = 2 * (h[i -1 ] + h[i])
+        A[i, i + 1] = h[i]
+        b[i] = (3 / h[i]) * (yd[i + 1] - yd[i]) - (3 / h[i - 1]) * (yd[i] - yd[i - 1])
     
-    #Spline fitting algorithm
-    spline = Univariatespline(xd, yd, k=order, s=0, ext='raise')
-    return spline"""
+    #Solve for M second derivative
+    M = np.linalg.solve(A, b)
 
+    #Step 2: computing the coefficient for each segement
+    splines = []
+    for i in range(n):
+        a = yd[i]
+        b = (yd[i + 1] - yd[i]) / h[i] - h[i] * (2 * M[i] + M[1 + i]) / 3
+        c = M[i]
+        d = (M[1 + i] - M[i]) / (3 * h[i])
+        splines.append((a, b, c, d))
 
+#Step 3: Define spline function
+    def spline_function():
 
-#could we use the scipy package (for scipyinterpolate import univariate spline)
-# or are we meant to stick to the import numpy as np way of calcuating the spline
-#by (using numpy lin alg solve)
+        x = np.asarray(x)
+        result = np.zeros_like(x, dtype=float)
+    
+        for i in range(n):
+            mask = (xd[i] <= x) & (x <= xd[i + 1])
+            dx = x[mask] - xd[i]
+            a, b, c, d = splines[i]
+            result[mask] = a + b * dx + c * dx**2 + d * dx**3
+        return result 
+
+    return spline_function
