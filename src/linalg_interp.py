@@ -96,7 +96,10 @@ def gauss_iter_solve(A, b, x0=None, tol=1e-8, alg='seidel'):
 #from scipy.interpolate import Univariatespline
 import numpy as np
 
-"""
+
+
+def cubic_spline(xd, yd):
+    """
         Parameters:
         ===========
         xd:
@@ -140,10 +143,8 @@ import numpy as np
         Raises (ErrorType):
         ==================
         ValueError : if inputs are invalid or do not meet requirements as desired.
-    """
-
-def cubic_spline(xd, yd):
-
+        """
+ 
     xd = np.asarray(xd)
     yd = np.asarray(yd)
 
