@@ -1,5 +1,4 @@
-#This file contains unit tests to implement our function in our module file.
-
+#Test Script
 
 import os
 import numpy as np
