@@ -175,7 +175,8 @@ def cubic_spline(xd, yd):
         d = (M[1 + i] - M[i]) / (3 * h[i])
         splines.append((a, b, c, d))
 
-    #Step 3: Define spline function
+
+#Step 3: Define spline function
     def spline_function():
 
         x = np.asarray(x)
