@@ -10,7 +10,6 @@ def gauss_iter_solve(A, b, x0=None, tol=1e-8, alg='seidel'):
    """
         Parameters:
         ===========
-
         A:
         --
         Let 'A' be an array_like containing the coefficient matrix. 
