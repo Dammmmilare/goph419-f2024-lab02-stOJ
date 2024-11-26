@@ -90,8 +90,10 @@ def gauss_iter_solve(A, b, x0=None, tol=1e-8, alg='seidel'):
     # Warning to be raised if our maximum iterations are reached
     raise RuntimeWarning("Solution did not converge within maximum iterations.")
 
+
 #This function generates a spline interpolation function for our algorithm
 #from scipy.interpolate import Univariatespline
+
 import numpy as np
 
 def cubic_spline(xd, yd):
