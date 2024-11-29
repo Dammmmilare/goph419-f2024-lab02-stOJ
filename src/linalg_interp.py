@@ -45,10 +45,10 @@ def gauss_iter_solve(A, b, x0=None, tol=1e-8, alg='seidel'):
    A = np.asarray(A, dtype=float)
    b = np.asarray(b, dtype=float)
 
-   # Validates dimensions
+   # Validates dimensions of our matrix
    n, m = A.shape
    if n != m or b.shape[0] != n:
-        raise ValueError("Matrix dimensions shuld match the form Ax=b ")
+        raise ValueError("Matrix dimensions should match the form Ax = b. ")
 
     # Initialising our variable x
    if x0 is None:
@@ -72,13 +72,14 @@ def gauss_iter_solve(A, b, x0=None, tol=1e-8, alg='seidel'):
     for _  in range (max_iter):
         x_new = x.copy()
     for i in range(n):
-        # Sum computations
+
+        # Sum of our computations
         if alg == 'seidel':
             sum1 = np.dot(A[i, :i], x_new[:i])
-            sum2 = np.dot(A[i, i+1:], x[i+1:])
+            sum2 = np.dot(A[i, i + 1:], x[i + 1:])
         elif alg == 'jacobi':
             sum1 = np.dot(A[i, :i], x[:i])
-            sum2 = np.dot(A[i, i+1:], x[i+1:])
+            sum2 = np.dot(A[i, i + 1:], x[i + 1:])
         x_new[i] = (b[i] - sum1 - sum2 )/ A[i, i]
 
     # Checking for Convergence
@@ -91,7 +92,6 @@ def gauss_iter_solve(A, b, x0=None, tol=1e-8, alg='seidel'):
 
 
 #This function generates a spline interpolation function for our algorithm
-#from scipy.interpolate import Univariatespline
 
 import numpy as np
 
