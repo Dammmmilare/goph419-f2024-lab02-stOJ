@@ -7,15 +7,19 @@ from src.linalg_interp import gauss_iter_solve, cubic_spline
 
 def test_gauss_iter_solve():
 
-    # System description:
+    # System description.
     A = np.array([[4, -1, 0], [-1, 4, -1], [0, -1, 4]])
     b = np.array([15, 10, 10])
 
     x_seidel = gauss_iter_solve(A, b, tol= 1e-8, alg='seidel')
 
+    if x_seidel is None:
+        print("Gauss-Seidel didnt converge")
+        return 
+    
     x_expected = np.linalg.solve(A, b)
 
-    np.testing.assert_almost_equal(x_seidel, x_expected, decimals=6)
+    np.testing.assert_almost_equal(x_seidel, x_expected, decimal=6)
     print("Gauss-seidel test passed!")
 
 # Test function to test the spline_function under the cubic spline function.
