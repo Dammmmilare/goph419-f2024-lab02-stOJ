@@ -147,13 +147,13 @@ def cubic_spline(xd, yd, order=3):
 
     # Step 1: Validating our inputs.
     if len(xd) != len(yd):
-        raise ValueError("xd and yd must have the  same length")
+        raise ValueError("xd and yd must have the  same length.")
     if len(np.unique(xd)) != len(xd):
-        raise ValueError ("xd is not allowed to have repeatd vlues")
+        raise ValueError ("xd is not allowed to have repeatd vlues.")
     if not np.all(np.diff(xd) > 0):
-        raise ValueError("xd has to be strictly increasing in nature")
+        raise ValueError("xd has to be strictly increasing in nature.")
     if order != 3:
-        raise ValueError("Only cubic splines (order=3) are implemented")
+        raise ValueError("Only cubic splines (order=3) are implemented.")
 
     # Computing intervals by setting intervals (n) and interval lengths (h).
     n = len(xd) - 1
@@ -168,7 +168,7 @@ def cubic_spline(xd, yd, order=3):
     A[n, n] = 1
 
     #Internal continuity and smoothness conditons.
-    for i in range(1 + n):
+    for i in range(1, n):
         A[i, i - 1] = h[i - 1]
         A[i, i] = 2 * (h[i - 1] + h[i])
         A[i, i + 1] = h[i]
