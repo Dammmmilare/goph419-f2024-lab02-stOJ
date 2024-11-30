@@ -70,24 +70,25 @@ def gauss_iter_solve(A, b, x0=None, tol=1e-8, alg='seidel'):
     max_iter = 10000
     for _  in range (max_iter):
         x_new = x.copy()
-    for i in range(n):
+        for i in range(n):
 
         # Sum of our computations
-        if alg == 'seidel':
-            sum1 = np.dot(A[i, :i], x_new[:i])
-            sum2 = np.dot(A[i, i + 1:], x[i + 1:])
-        elif alg == 'jacobi':
-            sum1 = np.dot(A[i, :i], x[:i])
-            sum2 = np.dot(A[i, i + 1:], x[i + 1:])
-        x_new[i] = (b[i] - sum1 - sum2 )/ A[i, i]
+            if alg == 'seidel':
+                sum1 = np.dot(A[i, :i], x_new[:i])
+                sum2 = np.dot(A[i, i + 1:], x[i + 1:])
+            elif alg == 'jacobi':
+                sum1 = np.dot(A[i, :i], x[:i])
+                sum2 = np.dot(A[i, i + 1:], x[i + 1:])
+            x_new[i] = (b[i] - sum1 - sum2 )/ A[i, i]
 
     # Checking for Convergence
-    if np.linalg.norm(x_new - x) / np.linalg.norm(x_new) < tol:
-        return x_new
+        if np.linalg.norm(x_new - x) / np.linalg.norm(x_new) < tol:
+            return x_new
 
-    x = x_new  
-    # Warning to be raised if our maximum iterations are reached
-    raise RuntimeWarning("Solution did not converge within maximum iterations.")
+        x = x_new  
+
+        # Warning to be raised if our maximum iterations are reached
+        raise RuntimeWarning("Solution did not converge within maximum iterations.")
 
 
 #This function generates a spline interpolation function for our algorithm
