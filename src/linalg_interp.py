@@ -1,12 +1,11 @@
 # This file contains the utility functions required for the workability of our 
 # algorithm and system.
 
-import numpy as np
+
 #Function helps us solve large scale and sparse systems where the use of iteirative 
 #methods can use sparsity to save computational stress.
-
 def gauss_iter_solve(A, b, x0=None, tol=1e-8, alg='seidel'):
-   
+   import numpy as np
    """
         Parameters:
         ===========
@@ -93,9 +92,9 @@ def gauss_iter_solve(A, b, x0=None, tol=1e-8, alg='seidel'):
 
 #This function generates a spline interpolation function for our algorithm
 
-import numpy as np
 
-def cubic_spline(xd, yd):
+def cubic_spline(xd, yd, order=3):
+    import numpy as np
     """
         Parameters:
         ===========
@@ -145,44 +144,55 @@ def cubic_spline(xd, yd):
     xd = np.asarray(xd)
     yd = np.asarray(yd)
 
-    # Setting intervals (n) and interval lengths (h)
+    # Step 1: Validating our inputs.
+    if len(xd) != len(yd):
+        raise ValueError("xd and yd must have the  same length")
+    if len(np.unique(xd)) != len(xd):
+        raise ValueError ("xd is not allowed to have repeatd vlues")
+    if not np.all(np.diff(xd) > 0):
+        raise ValueError("xd has to be strictly increasing in nature")
+    if order != 3:
+        raise ValueError("Only cubic splines (order=3) are implemented")
+
+    # Computing intervals by setting intervals (n) and interval lengths (h).
     n = len(xd) - 1
     h = np.diff(xd)
 
-    #Step 1: setting the system up for second derivatives
+    #Step 2: setting the system up for second derivatives.
     A = np.zeros((n + 1, n + 1))
     b = np.zeros(n + 1)
 
-    #Neutral spline boundary conditions
+    #Neutral spline boundary conditions for spline functionality.
     A[0, 0] = 1
     A[n, n] = 1
 
-    #Internal continuity and smoothness conditons
+    #Internal continuity and smoothness conditons.
     for i in range(1 + n):
         A[i, i - 1] = h[i - 1]
-        A[i, i] = 2 * (h[i -1 ] + h[i])
+        A[i, i] = 2 * (h[i - 1] + h[i])
         A[i, i + 1] = h[i]
         b[i] = (3 / h[i]) * (yd[i + 1] - yd[i]) - (3 / h[i - 1]) * (yd[i] - yd[i - 1])
     
-    #Solve for M second derivative
+    #Solve for M second derivative.
     M = np.linalg.solve(A, b)
 
-    #Step 2: computing the coefficient for each segement
+    #Step 2: computing the coefficient for each segement.
     splines = []
     for i in range(n):
         a = yd[i]
-        b = (yd[i + 1] - yd[i]) / h[i] - h[i] * (2 * M[i] + M[1 + i]) / 3
+        b = (yd[i + 1] - yd[i]) / h[i] - h[i] * (2 * M[i] + M[i + 1]) / 3
         c = M[i]
         d = (M[1 + i] - M[i]) / (3 * h[i])
         splines.append((a, b, c, d))
 
 
-#Step 3: Define spline function
-    def spline_function():
-
+    #Step 3: Define spline function.
+    def spline_function(x):
         x = np.asarray(x)
-        result = np.zeros_like(x, dtype=float)
+        if np.any(x < xd[0]) or np.any(x > xd[-1]):
+            raise ValueError(f"x values must be within the range [{xd[0]}, {xd[-1]}].")
     
+        result = np.zeros_like(x, dtype=float)
         for i in range(n):
             mask = (xd[i] <= x) & (x <= xd[i + 1])
             dx = x[mask] - xd[i]
