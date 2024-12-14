@@ -42,8 +42,8 @@ if __name__ == "__main__":
     base_dir = os.path.dirname(__file__)
 
     data_dir = os.path.join(base_dir, "data")
-    output_dir = os.path.join(base_dir, "figures")
-    os.makedirs(output_dir, exist_ok=True)
+    '''    output_dir = os.path.join(base_dir, "figures")
+    os.makedirs(output_dir, exist_ok=True)'''
 
     water_density_data = load_data(os.path.join(data_dir, "water_density_vs_temp_usgs.txt"))
     air_density_data = load_data(os.path.join(data_dir, "air_density_vs_temp_eng_toolbox.txt"))
